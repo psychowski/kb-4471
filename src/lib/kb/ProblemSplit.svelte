@@ -1,26 +1,34 @@
 <script lang="ts">
   import reports from '#lib/data/reports-4471.json';
   import notes from '#lib/data/desk-notes.json';
-  import type { Report } from '#lib/kb/causes';
+  import { groupByCause, readAs, uniqueById, type Report } from '#lib/kb/causes';
   import { tenantOf } from '#lib/kb/locales';
-  import { splitTicket } from '#lib/kb/split';
 
   let { ticket }: { ticket: number } = $props();
 
-  const split = $derived(splitTicket(reports as Report[], ticket, notes.oneDayMove, tenantOf));
+  const merged = $derived(uniqueById(reports as Report[]).filter((r) => r.mergedInto === ticket));
+  const groups = $derived(groupByCause(merged, tenantOf));
 </script>
 
-<p class="sum"><strong>{split.total}</strong> reports in #{ticket} · <strong>{split.rows.length}</strong> problems</p>
+<p class="sum"><strong>{merged.length}</strong> reports in #{ticket} · <strong>{groups.length}</strong> problems</p>
 
 <table>
   <thead><tr><th>problem</th><th>reports</th><th>tenants</th></tr></thead>
   <tbody>
-    {#each split.rows as row (row.problem)}
-      <tr><td><code>{row.problem}</code></td><td>{row.reports}</td><td>{row.tenants}</td></tr>
+    {#each groups as g (g.cause)}
+      <tr><td><code>{g.cause}</code></td><td>{g.reports.length}</td><td>{g.tenants}</td></tr>
     {/each}
   </tbody>
 </table>
 
+{#each groups as g (g.cause)}
+  {@const moved = readAs(g, notes.oneDayMove)}
+  {#if moved}
+    <p class="note">{moved} of the <code>{g.cause}</code> reports read as a one-day move; counted here, where they are filed.</p>
+  {/if}
+{/each}
+
 <style>
   .sum { font-size: 1.1rem; }
+  .note { color: var(--muted); font-size: 0.85em; }
 </style>

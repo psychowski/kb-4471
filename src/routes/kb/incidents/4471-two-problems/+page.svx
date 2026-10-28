@@ -1,6 +1,6 @@
 ---
 layout: runbook
-title: '#4471 · three problems, not one'
+title: '#4471 · two problems, not one'
 owner: Przemysław Sychowski
 status: proposed
 reviewed: 2026-10-28
@@ -16,10 +16,10 @@ signature: v1.eyJzdWIiOiI1NTQ5IiwiYXVkIjoiY2hhbGxlbmdlOndoYXQtaXQtc2hvd3MiLCJpYX
 </script>
 
 [#4471](/kb/incidents/4471) merged every date report into one issue and marked it known. Read
-one by one, the 412 reports hold three different problems. One fix does not close them all.
+one by one, the 412 reports hold two different problems. One fix does not close both.
 
 <Callout>
-Not one issue. Three, each with its own cause, its own fix and its own count.
+Not one issue. Two, each with its own cause, its own fix and its own count.
 </Callout>
 
 ## The split
@@ -34,18 +34,17 @@ Not one issue. Three, each with its own cause, its own fix and its own count.
    form do what the hint says, and the form reads it their way. The parser fix does not touch
    this. The hint text needs its own fix. Intake tagged about half of these `parser`, so
    the tag cannot tell the two apart.
-3. **`one-day`.** The reports named in `desk-notes.json` (`oneDayMove`) are a day off, not
-   a month and day swapped. They point at time zones, not at date order. The existing table counts them under
-   `parser`. They are a separate problem and need their own ticket.
+
+A few reports read as a one-day move (`desk-notes.json`). They stay counted under the cause
+their tenant gives them, and the table footnotes them.
 
 ## How the numbers are made
 
-The table runs `causes.ts` on every build, takes out the `oneDayMove` reports, and counts them
-as their own problem. Nobody types a number into this page.
+The table runs `causes.ts` on every build. Nobody types a number into this page.
 
 ## Why the old merge hid this
 
 [Decision 0001](/kb/decisions/0001-dedupe-by-subject) merges on subject alone. Subject lines say
-"wrong day" for all three problems. The decision says engineering merges later; here nobody did.
+"wrong day" for both problems. The decision says engineering merges later; here nobody did.
 
 <RenderStamp {signature} />
