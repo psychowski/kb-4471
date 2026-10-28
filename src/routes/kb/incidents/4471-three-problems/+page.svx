@@ -4,7 +4,7 @@ title: '#4471 · three problems, not one'
 owner: Przemysław Sychowski
 status: proposed
 reviewed: 2026-10-28
-signature: Przemysław Sychowski
+signature: v1.eyJzdWIiOiI1NTQ5IiwiYXVkIjoiY2hhbGxlbmdlOndoYXQtaXQtc2hvd3MiLCJpYXQiOjE3OTMyMDYxMzMsImV4cCI6MTc5MzI5MjUzM30.-bKu4gjaW_SxqUki89qm2WaFi6pBj0QCtv7GCV5W_dY
 ---
 
 <script>
@@ -12,7 +12,7 @@ signature: Przemysław Sychowski
   import Callout from '#lib/kb/Callout.svelte';
   import RenderStamp from '#lib/kb/RenderStamp.svelte';
 
-  const signature = 'Przemysław Sychowski';
+  const signature = 'v1.eyJzdWIiOiI1NTQ5IiwiYXVkIjoiY2hhbGxlbmdlOndoYXQtaXQtc2hvd3MiLCJpYXQiOjE3OTMyMDYxMzMsImV4cCI6MTc5MzI5MjUzM30.-bKu4gjaW_SxqUki89qm2WaFi6pBj0QCtv7GCV5W_dY';
 </script>
 
 [#4471](/kb/incidents/4471) merged every date report into one issue and marked it known. Read
