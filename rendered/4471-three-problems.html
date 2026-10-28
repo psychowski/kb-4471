@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>#4471 · three problems, not one · support kb</title>
+<style>body{font:16px/1.6 system-ui,sans-serif;max-width:760px;margin:2rem auto;padding:0 16px;color:#1d1d1b}
+table{border-collapse:collapse;width:100%}th,td{border-bottom:1px solid #e3e0d8;padding:.35rem .5rem;text-align:left}
+.meta{color:#6b6a66;font-size:.85rem}.callout{background:#eef5f2;padding:.6rem 1rem;border-radius:6px}
+.stamp{font:.85rem ui-monospace,monospace;color:#6b6a66}.stamp b{color:#2f6f5e}</style></head><body>
+<a href="/kb">support desk · kb</a>
+<h1>#4471 · three problems, not one</h1>
+<p class="meta">owner <b>Przemysław Sychowski</b> · proposed · reviewed 2026-10-28 · 0 days ago</p>
+<p><a href="/kb/incidents/4471">#4471</a> merged every date report into one issue and marked it known. Read one by one, the 412 reports hold three different problems. One fix does not close them all.</p>
+<p class="callout">Not one issue. Three, each with its own cause, its own fix and its own count.</p>
+<h2>The split</h2>
+<p><strong>412</strong> reports in #4471 · <strong>3</strong> problems</p>
+<table><thead><tr><th>problem</th><th>reports</th><th>tenants</th></tr></thead><tbody>
+<tr><td><code>parser</code></td><td>374</td><td>11</td></tr>
+<tr><td><code>hint</code></td><td>33</td><td>3</td></tr>
+<tr><td><code>one-day</code></td><td>5</td><td>5</td></tr>
+</tbody></table>
+<h2>The problems</h2>
+<ol>
+<li><b><code>parser</code>.</b> The shared parser reads every date month first. Day-first tenants get month and day flipped. This is the bug the old page describes, and it covers most of the reports.</li>
+<li><b><code>hint</code>.</b> The <code>booking-v3</code> form tells people to type <code>MM/DD/YYYY</code>. Day-first tenants on that form do what the hint says, and the form reads it their way. The parser fix does not touch this. The hint text needs its own fix. Intake tagged about half of these <code>parser</code>, so the tag cannot tell the two apart.</li>
+<li><b><code>one-day</code>.</b> The reports named in <code>desk-notes.json</code> (<code>oneDayMove</code>) are a day off, not a month and day swapped. They point at time zones, not at date order. The existing table counts them under <code>parser</code>. They are a separate problem and need their own ticket.</li>
+</ol>
+<h2>How the numbers are made</h2>
+<p>The table runs <code>causes.ts</code> on every build, takes out the <code>oneDayMove</code> reports, and counts them as their own problem. Nobody types a number into this page.</p>
+<h2>Why the old merge hid this</h2>
+<p><a href="/kb/decisions/0001-dedupe-by-subject">Decision 0001</a> merges on subject alone. Subject lines say "wrong day" for all three problems. The decision says engineering merges later; here nobody did.</p>
+<p class="stamp">desk ref <b>DR-6Y9S-VGSF</b></p>
+</body></html>
